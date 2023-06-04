@@ -1,6 +1,6 @@
 create table if not exists app_user (
-       id bigint not null,
-        is_verified bit not null,
+        id bigserial not null,
+        is_verified boolean not null,
         name varchar(255),
         password varchar(255),
         username varchar(255),
@@ -9,24 +9,24 @@ create table if not exists app_user (
         primary key (id));
 
 create table if not exists app_user_order_carts (
-       app_user_id bigint not null,
+        app_user_id bigint not null,
         order_carts_id bigint not null);
 
-create table if not exists  app_user_roles (
-       app_user_id bigint not null,
+create table if not exists app_user_roles (
+        app_user_id bigint not null,
         roles_id bigint not null);
 
 create table if not exists basket (
-       id bigint not null,
+        id bigserial not null,
         basket_name varchar(255),
         primary key (id));
 
 create table if not exists basket_products (
-       basket_id bigint not null,
+        basket_id bigint not null,
         products_id bigint not null);
 
-create table if not exists  order_cart (
-       id bigint not null,
+create table if not exists order_cart (
+        id bigserial not null,
         basket_name varchar(255),
         city varchar(255),
         first_and_last_name varchar(255),
@@ -37,12 +37,12 @@ create table if not exists  order_cart (
         username varchar(255),
         primary key (id));
 
-create table if not exists  order_cart_products (
-       order_cart_id bigint not null,
+create table if not exists order_cart_products (
+        order_cart_id bigint not null,
         products_id bigint not null);
 
-create table if not exists  product (
-       id bigint not null,
+create table if not exists product (
+        id bigserial not null,
         category varchar(255),
         imageurl varchar(255),
         product_description varchar(255),
@@ -51,10 +51,10 @@ create table if not exists  product (
         primary key (id));
 
 create table if not exists product_baskets (
-       product_id bigint not null,
+        product_id bigint not null,
         baskets_id bigint not null);
 
-create table if not exists  role (
-       id bigint not null,
+create table if not exists role (
+        id bigserial not null,
         name varchar(255),
         primary key (id));
