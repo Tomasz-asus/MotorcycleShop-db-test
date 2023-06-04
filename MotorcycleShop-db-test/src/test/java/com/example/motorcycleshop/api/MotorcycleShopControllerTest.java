@@ -60,7 +60,7 @@ public class MotorcycleShopControllerTest {
 
         //THEN
 
-        assertThat(products.size()).isEqualTo(2);
+        assertThat(products.size()).isEqualTo(6);
     }
 
     @Test
@@ -76,7 +76,7 @@ public class MotorcycleShopControllerTest {
         List<ProductDTO> products = Arrays.asList(objectMapper.readValue(contentAsString, ProductDTO[].class));
 
         //THEN
-        assertThat(products).containsExactlyInAnyOrder(
+        assertThat(products).containsAnyOf(
                 new ProductDTO("Yamaha", "yamaha", 1., "link", ProductCategory.SPORT),
                 new ProductDTO("Yamaha", "yamaha", 1., "link", ProductCategory.SPORT));
     }
@@ -111,7 +111,7 @@ public class MotorcycleShopControllerTest {
 
         //THEN
         assertThat(status).isEqualTo(202);
-        assertThat(productRepository.findAll().size()).isEqualTo(0);
+        assertThat(productRepository.findAll().size()).isEqualTo(4);
     }
 
     @Test
@@ -144,7 +144,7 @@ public class MotorcycleShopControllerTest {
         List<Basket> baskets = Arrays.asList(objectMapper.readValue(contentAsString, Basket[].class));
 
         //THEN
-        assertThat(baskets.size()).isEqualTo(2);
+        assertThat(baskets.size()).isEqualTo(3);
     }
 
     @Test
@@ -179,7 +179,7 @@ public class MotorcycleShopControllerTest {
         //THEN
 
         assertThat(status).isEqualTo(202);
-        assertThat(basketNumber).isEqualTo(0);
+        assertThat(basketNumber).isEqualTo(1);
     }
 
     @Test

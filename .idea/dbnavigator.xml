@@ -20,7 +20,7 @@
     <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
-    <mapping file-url="file://$PROJECT_DIR$/MotorcycleShop-db-test/src/main/resources/db.migration/V1__init_database.sql" connection-id="03bc6749-1682-4b69-b508-a7f070d0e1ef" session-id="MAIN" current-schema="public" />
+    <mapping file-url="file://$PROJECT_DIR$/MotorcycleShop-db-test/src/main/resources/db/migration/V1__init_database.sql" connection-id="03bc6749-1682-4b69-b508-a7f070d0e1ef" session-id="MAIN" current-schema="postgres" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
