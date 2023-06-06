@@ -10,34 +10,41 @@ import com.example.motorcycleshop.repository.RoleRepository;
 import com.example.motorcycleshop.security.filter.CustomAuthenticationFilter;
 import com.example.motorcycleshop.service.AppUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import net.bytebuddy.utility.RandomString;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import jakarta.transaction.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
 //
-//@SpringBootTest
-//@AutoConfigureMockMvc
+//@Testcontainers
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 //@Transactional
 //
-//class AppUserControllerTest {
+//class AppUserDBControllerTest {
 //
 //    @Autowired
-//    private MockMvc mockMvc;
+//    private WebTestClient webTestClient;
 //
 //    @Autowired
 //    private ObjectMapper objectMapper;
@@ -54,6 +61,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 //    @Autowired
 //    BasketRepository basketRepository;
 //
+//
+//    @Container
+//    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest");
+//
+//    @DynamicPropertySource
+//    static void properties(@NotNull DynamicPropertyRegistry registry){
+//        registry.add("string.datasource.url", postgres::getJdbcUrl);
+//        registry.add("spring.datasource.url", postgres::getUsername);
+//        registry.add("spring.datasource.url", postgres::getPassword);
+//    }
+//
 //    @Test
 //    public void shouldGetAppUsers() throws Exception {
 //        //GIVEN
@@ -65,7 +83,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 //        AppUser userOne = new AppUser("name1", "nam1@gmail.com", "password", new ArrayList<>());
 //        AppUser userTwo = new AppUser("name2", "nam2@gmail.com", "password", new ArrayList<>());
 //
-//        userOne.setBasket(basketRepository.findByBasketName("testOne").get());
+//        userOne.setBasket(basketRepository.findByBasketName("testOne"). get());
 //        userTwo.setBasket(basketRepository.findByBasketName("testTwo").get());
 //
 //        appUserRepository.save(userOne);
@@ -177,3 +195,4 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 //        assertThat(roleRepository.findByName("ROLE_ADMIN")).isSameAs(role);
 //    }
 //}
+//

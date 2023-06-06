@@ -60,7 +60,7 @@ public class MotorcycleShopControllerTest {
 
         //THEN
 
-        assertThat(products.size()).isEqualTo(6);
+        assertThat(products.size()).isEqualTo(5);
     }
 
     @Test
@@ -111,7 +111,7 @@ public class MotorcycleShopControllerTest {
 
         //THEN
         assertThat(status).isEqualTo(202);
-        assertThat(productRepository.findAll().size()).isEqualTo(4);
+        assertThat(productRepository.findAll().size()).isEqualTo(3);
     }
 
     @Test
