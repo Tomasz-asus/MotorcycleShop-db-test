@@ -12,7 +12,11 @@ public class ProductDTO {
     private String imageURL;
     private ProductCategory category;
 
-    public ProductDTO(String productName, String productDescription, Double productPrice, String imageURL, ProductCategory category) {
+    public ProductDTO(String productName,
+                      String productDescription,
+                      Double productPrice,
+                      String imageURL,
+                      ProductCategory category) {
         this.productName = productName;
         this.productDescription = productDescription;
         this.productPrice = productPrice;
@@ -65,7 +69,11 @@ public class ProductDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductDTO that = (ProductDTO) o;
-        return Objects.equals(productName, that.productName) && Objects.equals(productDescription, that.productDescription) && Objects.equals(productPrice, that.productPrice) && Objects.equals(imageURL, that.imageURL) && category == that.category;
+        return Objects.equals(productName, that.productName)
+                && Objects.equals(productDescription, that.productDescription)
+                && Objects.equals(productPrice, that.productPrice)
+                && Objects.equals(imageURL, that.imageURL)
+                && category == that.category;
     }
 
     @Override

@@ -14,8 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/shop")
-public class MotorcycleShopController
-{
+public class MotorcycleShopController {
 
     private final MotorcycleShopService motorcycleShopService;
 
@@ -75,5 +74,4 @@ public class MotorcycleShopController
     public ResponseEntity<OrderCartDTO> addOrder(@RequestBody OrderCartDTO orderDTO) {
         return new  ResponseEntity<>(motorcycleShopService.addOrder(orderDTO), HttpStatus.CREATED);
     }
-
 }

@@ -13,9 +13,13 @@ public class OrderCartDTO {
     private String basketName;
 
 
-    public OrderCartDTO(String username, String firstAndLastName,
-                        String basketName, String street, String postalCode,
-                        String city, Integer phoneNumber) {
+    public OrderCartDTO(String username,
+                        String firstAndLastName,
+                        String basketName,
+                        String street,
+                        String postalCode,
+                        String city,
+                        Integer phoneNumber) {
 
         this.username = username;
         this.firstAndLastName = firstAndLastName;

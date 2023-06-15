@@ -17,7 +17,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/api")
 public class AppUserController {
@@ -70,8 +69,6 @@ public class AppUserController {
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.appUserService.refresh(request, response);
     }
-
-
 }
 
 
