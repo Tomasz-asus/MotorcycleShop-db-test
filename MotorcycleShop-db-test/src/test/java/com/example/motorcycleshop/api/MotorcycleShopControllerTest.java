@@ -1,8 +1,6 @@
 package com.example.motorcycleshop.api;
 
 import com.example.motorcycleshop.DTO.ProductDTO;
-import com.example.motorcycleshop.DTO.OrderCartDTO;
-import com.example.motorcycleshop.model.AppUser;
 import com.example.motorcycleshop.model.Basket;
 import com.example.motorcycleshop.model.Product;
 import com.example.motorcycleshop.model.ProductCategory;
@@ -11,8 +9,6 @@ import com.example.motorcycleshop.repository.BasketRepository;
 import com.example.motorcycleshop.repository.ProductRepository;
 import com.example.motorcycleshop.service.ProductMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,7 +19,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import jakarta.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,8 +39,6 @@ public class MotorcycleShopControllerTest {
     private ProductRepository productRepository;
     @Autowired
     private BasketRepository basketRepository;
-    @Autowired
-    private AppUserRepository appUserRepository;
 
 
     @Test

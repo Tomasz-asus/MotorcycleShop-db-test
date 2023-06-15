@@ -28,40 +28,22 @@ public class ProductDTO {
         return productName;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
 
     public String getProductDescription() {
         return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
     }
 
     public Double getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Double productPrice) {
-        this.productPrice = productPrice;
-    }
-
     public String getImageURL() {
         return imageURL;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
 
     public ProductCategory getCategory() {
         return category;
-    }
-
-    public void setCategory(ProductCategory category) {
-        this.category = category;
     }
 
     @Override
