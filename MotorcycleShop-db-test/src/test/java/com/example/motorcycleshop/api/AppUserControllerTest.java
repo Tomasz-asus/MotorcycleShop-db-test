@@ -109,7 +109,7 @@ class AppUserControllerTest {
     }
 
     @Test
-    public void shouldVerifyUser() throws Exception {
+    public void  shouldVerifyUser() throws Exception {
         //GIVEN
         appUserService.saveRole(new Role("ROLE_USER"));
         basketRepository.save(new Basket("testOne"));

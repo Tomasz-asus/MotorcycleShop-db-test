@@ -107,7 +107,6 @@ public class MotorcycleShopServiceImpl implements MotorcycleShopService {
                 -> new UserNotFoundException("User " + orderDTO.getUsername() + " was not found."));
         appUser.getOrderCarts().add(save);
         String basketCustomName = UUID.randomUUID().toString().substring(0,20);
-        //String basketCustomName = RandomString.make(20);
         Basket basket = new Basket(basketCustomName);
         basketRepository.save(basket);
         appUser.setBasket(basketRepository.findByBasketName(basketCustomName).orElseThrow(() ->
@@ -115,5 +114,4 @@ public class MotorcycleShopServiceImpl implements MotorcycleShopService {
         appUserRepository.save(appUser);
         return OrderCartMapper.fromEntity(save);
     }
-
 }

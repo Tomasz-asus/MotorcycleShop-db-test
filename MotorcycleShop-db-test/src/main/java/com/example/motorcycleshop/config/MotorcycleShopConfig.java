@@ -14,12 +14,10 @@ import java.util.Arrays;
 @Configuration
 @EnableTransactionManagement
 public class MotorcycleShopConfig {
-
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

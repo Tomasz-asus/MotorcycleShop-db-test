@@ -34,6 +34,8 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
+
+import javax.management.relation.RoleNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -49,7 +51,6 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Autowired
     private JavaMailSender mailSender;
-
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -82,12 +83,10 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.getRoles().add(roleRepository.findByName("ROLE_USER"));
             String basketCustomName = UUID.randomUUID().toString().substring(0,20);
-            //String basketCustomName = RandomString.make(20);
             Basket basket = new Basket(basketCustomName);
             basketRepository.save(basket);
             user.setBasket(basketRepository.findByBasketName(basketCustomName).get());
             String randomCode = UUID.randomUUID().toString().substring(0,32);
-            //String randomCode = RandomString.make(64);
             user.setVerificationCode(randomCode);
             sendVerificationEmail(user, siteUR);
             appUserRepository.save(user);
@@ -101,7 +100,6 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(roleRepository.findByName("ROLE_ADMIN"));
         String basketCustomName = UUID.randomUUID().toString().substring(0,20);
-        //String basketCustomName = RandomString.make(20);
         Basket basket = new Basket(basketCustomName);
         basketRepository.save(basket);
         user.setBasket(basketRepository.findByBasketName(basketCustomName).orElseThrow(() ->
@@ -109,8 +107,6 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         user.setVerified(true);
         return appUserRepository.save(user);
     }
-
-
 
     @Override
     public void refresh(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -150,7 +146,6 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
             }
         } else {
             throw new RuntimeException("Refresh Token is Missing");
-
         }
     }
 
@@ -182,9 +177,32 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public Role saveRole(Role role) {
+        String roleName = role.getName();
+
+        Role existingRole = roleRepository.findByName(role.getName());
+
+        if (existingRole != null){
+            throw new IllegalArgumentException("Role with name" + roleName + " is exist");
+        }
         return roleRepository.save(role);
     }
+/*
+@Override
+public Role saveRole(Role role) {
+    String roleName = role.getName(); // Przykład sprawdzania powtarzającej się nazwy roli
 
+    Role existingRole = roleRepository.findByName(roleName); // Sprawdzenie, czy istnieje rola o takiej samej nazwie
+
+    if (existingRole != null) {
+        throw new IllegalArgumentException("Rola o nazwie " + roleName + " już istnieje."); // Rzucenie wyjątku w przypadku powtarzającej się roli
+        // lub
+        // return null; // Zwrócenie wartości null, aby wskazać, że operacja zapisu nie powiodła się
+    }
+
+    return roleRepository.save(role);
+}
+
+ */
     @Override
     public void addRoleToUser(String username, String roleName) {
         AppUser user = appUserRepository.findByUsername(username).orElseThrow(() ->

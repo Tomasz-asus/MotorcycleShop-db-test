@@ -31,24 +31,8 @@ public class DbFilling {
     @EventListener(ApplicationReadyEvent.class)
     public void doSomethingAfterStartup() {
 
-//        controller.addProduct(new ProductDTO("KTM 1290", "Mini KTM 690", 99.00,
-//                "https://motomoda24.pl/wp-content/uploads/2022/06/ktm-690.jpg",
-//                ProductCategory.SPORT));
-//        controller.addProduct(new ProductDTO("Kawasaki Z 900 RS", "Mini Kawasaki Z 900 RS", 99.00,
-//                "https://motomoda24.pl/wp-content/uploads/2019/10/product_d_2_d2-maisto-fertigmodell-kawasaki-z900rs-1-12-10013352_520_20.jpg",
-//                ProductCategory.SPORT));
-//        controller.addProduct(new ProductDTO("KTM 690", "Mini KTM 690", 99.00,
-//                "https://motomoda24.pl/wp-content/uploads/2021/10/maisto-model-ktm-690.jpg",
-//                ProductCategory.SPORT));
-
-
-        Role admin = new Role("ROLE_ADMIN");
-        Role user = new Role("ROLE_USER");
-        roleRepository.save(admin);
-        roleRepository.save(user);
-
         AppUser adminUser = new AppUser("admin", "admin", "admin", new ArrayList<>());
         appUserService.saveAdmin(adminUser);
     }
-}
 
+}

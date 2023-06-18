@@ -56,5 +56,5 @@ create table if not exists product_baskets (
 
 create table if not exists role (
         id bigserial not null,
-        name varchar(255),
+        name varchar(255) ,
         primary key (id));

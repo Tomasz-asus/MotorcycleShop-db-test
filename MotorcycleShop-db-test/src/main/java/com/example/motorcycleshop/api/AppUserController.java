@@ -33,12 +33,10 @@ public class AppUserController {
         appUserService.registerUser(appUser, getSiteURL(request));
         return ResponseEntity.created(uri).body(JSONObject.quote("User saved"));
     }
-
     private String getSiteURL(HttpServletRequest request) {
         String siteURL = request.getRequestURL().toString();
         return siteURL.replace(request.getServletPath(), "");
     }
-
     @GetMapping("/verify")
     public ResponseEntity<String> verifyUser(@Param("code") String code) {
         if (appUserService.verify(code)) {
@@ -47,24 +45,20 @@ public class AppUserController {
             return ResponseEntity.badRequest().body("verify_fail");
         }
     }
-
     @GetMapping("/users")
     public ResponseEntity<List<AppUser>> getAppUsers() {
         return ResponseEntity.ok().body(appUserService.getAppUsers());
     }
-
     @PostMapping("/role")
     public ResponseEntity<Role> saveRole(@RequestBody Role role) {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
         return ResponseEntity.created(uri).body(appUserService.saveRole(role));
     }
-
     @PostMapping("/role/toUser")
     public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form) {
         appUserService.addRoleToUser(form.getUsername(), form.getRoleName());
         return ResponseEntity.ok().build();
     }
-
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         this.appUserService.refresh(request, response);
