@@ -186,23 +186,6 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         }
         return roleRepository.save(role);
     }
-/*
-@Override
-public Role saveRole(Role role) {
-    String roleName = role.getName(); // Przykład sprawdzania powtarzającej się nazwy roli
-
-    Role existingRole = roleRepository.findByName(roleName); // Sprawdzenie, czy istnieje rola o takiej samej nazwie
-
-    if (existingRole != null) {
-        throw new IllegalArgumentException("Rola o nazwie " + roleName + " już istnieje."); // Rzucenie wyjątku w przypadku powtarzającej się roli
-        // lub
-        // return null; // Zwrócenie wartości null, aby wskazać, że operacja zapisu nie powiodła się
-    }
-
-    return roleRepository.save(role);
-}
-
- */
     @Override
     public void addRoleToUser(String username, String roleName) {
         AppUser user = appUserRepository.findByUsername(username).orElseThrow(() ->

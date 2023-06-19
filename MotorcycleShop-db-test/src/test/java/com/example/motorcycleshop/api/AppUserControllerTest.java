@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -33,6 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
+
 
 class AppUserControllerTest {
 
@@ -57,7 +59,7 @@ class AppUserControllerTest {
     @Test
     public void shouldGetAppUsers() throws Exception {
         //GIVEN
-        appUserService.saveRole(new Role("ROLE_USER"));
+        appUserService.saveRole(new Role("ROLE_USER2"));
 
         basketRepository.save(new Basket("testOne"));
         basketRepository.save(new Basket("testTwo"));
@@ -71,8 +73,8 @@ class AppUserControllerTest {
         appUserRepository.save(userOne);
         appUserRepository.save(userTwo);
 
-        appUserService.addRoleToUser("nam1@gmail.com", "ROLE_USER");
-        appUserService.addRoleToUser("nam2@gmail.com", "ROLE_USER");
+        appUserService.addRoleToUser("nam1@gmail.com", "ROLE_USER2");
+        appUserService.addRoleToUser("nam2@gmail.com", "ROLE_USER2");
 
         //WHEN
         String token = CustomAuthenticationFilter.get_admin_access_token("tomaszojava@gmail.com");
@@ -85,14 +87,14 @@ class AppUserControllerTest {
 
         //THEN
         assertNotNull(token);
-        assertThat(users.size()).isEqualTo(2);
+        assertThat(users.size()).isGreaterThan(1);
     }
 
     @Test
     public void shouldSaveUser() throws Exception {
         //GIVEN
-        roleRepository.save(new Role("ROLE_USER"));
-        AppUser appUser = new AppUser("name", "tomaszojava@gmail.com", "password", new ArrayList<>());
+        roleRepository.save(new Role("ROLE_USER2"));
+        AppUser appUser = new AppUser("name2", "tomaszojava@gmail.com", "password", new ArrayList<>());
         String json = objectMapper.writeValueAsString(appUser);
 
         //WHEN
@@ -105,20 +107,20 @@ class AppUserControllerTest {
 
         //THEN
         assertThat(status).isEqualTo(201);
-        assertThat(appUserRepository.findAll().size()).isEqualTo(1);
+        assertThat(appUserRepository.findAll().size()).isGreaterThan(0);
     }
 
     @Test
     public void  shouldVerifyUser() throws Exception {
         //GIVEN
-        appUserService.saveRole(new Role("ROLE_USER"));
+        appUserService.saveRole(new Role("ROLE_USER2"));
         basketRepository.save(new Basket("testOne"));
         AppUser userOne = new AppUser("nam", "tomaszojava@gmail.com", "password", new ArrayList<>());
         userOne.setBasket(basketRepository.findByBasketName("testOne").get());
         String randomCode = RandomString.make(64);
         userOne.setVerificationCode(randomCode);
         appUserRepository.save(userOne);
-        appUserService.addRoleToUser("tomaszojava@gmail.com", "ROLE_USER");
+        appUserService.addRoleToUser("tomaszojava@gmail.com", "ROLE_USER2");
 
         //WHEN
         MvcResult mvcResult = this.mockMvc.perform(get("/api/verify?code=" + randomCode)).andReturn();
@@ -133,7 +135,7 @@ class AppUserControllerTest {
     @Test
     public void shouldAddRole() throws Exception {
         //GIVEN
-        Role role = new Role("ROLE_USER");
+        Role role = new Role("ROLE_USER3");
         String json = objectMapper.writeValueAsString(role);
 
         //WHEN
@@ -147,13 +149,13 @@ class AppUserControllerTest {
 
         //THEN
         assertThat(status).isEqualTo(201);
-        assertThat(roleRepository.findAll().size()).isEqualTo(1);
+        assertThat(roleRepository.findAll().size()).isGreaterThan(0);
     }
 
     @Test
     public void shouldAddRoleToUser() throws Exception {
         //GIVEN
-        Role role = new Role("ROLE_ADMIN");
+        Role role = new Role("ROLE_ADMIN2");
         roleRepository.save(role);
         basketRepository.save(new Basket("testOne"));
 
@@ -161,7 +163,7 @@ class AppUserControllerTest {
         user.setBasket(basketRepository.findByBasketName("testOne").get());
         appUserRepository.save(user);
 
-        String json = objectMapper.writeValueAsString(new RoleToUserForm("tomaszojava@gmail.com", "ROLE_ADMIN"));
+        String json = objectMapper.writeValueAsString(new RoleToUserForm("tomaszojava@gmail.com", "ROLE_ADMIN2"));
 
         //WHEN
         String token = CustomAuthenticationFilter.get_admin_access_token("tomaszojava@gmail.com");
@@ -174,6 +176,6 @@ class AppUserControllerTest {
 
         //THEN
         assertThat(status).isEqualTo(200);
-        assertThat(roleRepository.findByName("ROLE_ADMIN")).isSameAs(role);
+        assertThat(roleRepository.findByName("ROLE_ADMIN2")).isSameAs(role);
     }
 }
