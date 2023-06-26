@@ -21,10 +21,10 @@ import org.springframework.http.HttpMethod;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-@Autowired
+
+    @Autowired
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
-
     private final AppUserRepository userRepo;
     @Autowired
     private AuthenticationConfiguration authenticationConfiguration;
@@ -59,10 +59,12 @@ public class SecurityConfig {
 
         return http.build();
     }
+
     @Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();

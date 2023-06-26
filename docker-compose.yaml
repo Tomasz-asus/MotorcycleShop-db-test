@@ -1,39 +1,35 @@
+version: '3.8'
 services:
-  postgres:
-    container_name: postgres
-    image: postgres
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: root
-      PGDATA: /data/postgres
-    volumes:
-      - postgres:/data/postgres
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "5432:5432"
-    networks:
-      - postgres
-    restart: unless-stopped
-
-  pgadmin:
-    container_name: pgadmin_container
-    image: dpage/pgadmin4
+      - 8080:8080
+    depends_on:
+      - db
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - pgadmin:/var/lib/pgadmin
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/motorcycleshopdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
 
+  db:
+    image: postgres:14
     ports:
-      - "5050:80"
-    networks:
-      - postgres
-    restart: unless-stopped
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=motorcycleshopdb
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
 
-networks:
-  postgres:
-    driver: bridge
-
-volumes:
-  postgres:
-  pgadmin:
+  flyway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/motorcycleshopdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=root
+    command: [ "mvn", "flyway:migrate" ]

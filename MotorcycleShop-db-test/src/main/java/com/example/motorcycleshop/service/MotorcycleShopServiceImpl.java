@@ -38,13 +38,17 @@ public class MotorcycleShopServiceImpl implements MotorcycleShopService {
     }
 
     public List<ProductDTO> getAllProducts() {
-        return productRepository.findAll().stream()
+        return productRepository
+                .findAll()
+                .stream()
                 .map(ProductMapper::fromEntity)
                 .collect(Collectors.toList());
     }
 
     public ProductDTO addProduct(ProductDTO productDTO) {
-        if (productRepository.findByProductName(productDTO.getProductName()).isPresent()) {
+        if (productRepository
+                .findByProductName(productDTO.getProductName())
+                .isPresent()) {
             throw new ProductAlreadyExistException("Product Already Exist");
         } else {
             Product save = productRepository.save(ProductMapper.fromDTO(productDTO));

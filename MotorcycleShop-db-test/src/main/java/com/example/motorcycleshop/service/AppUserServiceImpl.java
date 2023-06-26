@@ -14,9 +14,6 @@ import com.example.motorcycleshop.repository.AppUserRepository;
 import com.example.motorcycleshop.repository.BasketRepository;
 import com.example.motorcycleshop.repository.RoleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-
-//import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -28,14 +25,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 
-import javax.management.relation.RoleNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -71,9 +66,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         System.out.println("User found");
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         appUser.getRoles().forEach(role ->
-        {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        });
+                authorities.add(new SimpleGrantedAuthority(role.getName())));
         return new User(appUser.getUsername(), appUser.getPassword(), authorities);
     }
 
@@ -82,16 +75,16 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
         if (appUserRepository.findByUsername(user.getUsername()).isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.getRoles().add(roleRepository.findByName("ROLE_USER"));
-            String basketCustomName = UUID.randomUUID().toString().substring(0,20);
+            String basketCustomName = UUID.randomUUID().toString().substring(0, 20);
             Basket basket = new Basket(basketCustomName);
             basketRepository.save(basket);
             user.setBasket(basketRepository.findByBasketName(basketCustomName).get());
-            String randomCode = UUID.randomUUID().toString().substring(0,32);
+            String randomCode = UUID.randomUUID().toString().substring(0, 32);
             user.setVerificationCode(randomCode);
             sendVerificationEmail(user, siteUR);
             appUserRepository.save(user);
         } else {
-            throw new UserAlreadyExistException("User " + user.getUsername()+ " already exist.");
+            throw new UserAlreadyExistException("User " + user.getUsername() + " already exist.");
         }
     }
 
@@ -99,11 +92,11 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     public AppUser saveAdmin(AppUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.getRoles().add(roleRepository.findByName("ROLE_ADMIN"));
-        String basketCustomName = UUID.randomUUID().toString().substring(0,20);
+        String basketCustomName = UUID.randomUUID().toString().substring(0, 20);
         Basket basket = new Basket(basketCustomName);
         basketRepository.save(basket);
         user.setBasket(basketRepository.findByBasketName(basketCustomName).orElseThrow(() ->
-                new BasketNotFoundException("Basket " +  basketCustomName + " was not found.")));
+                new BasketNotFoundException("Basket " + basketCustomName + " was not found.")));
         user.setVerified(true);
         return appUserRepository.save(user);
     }
@@ -181,11 +174,12 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
         Role existingRole = roleRepository.findByName(role.getName());
 
-        if (existingRole != null){
+        if (existingRole != null) {
             throw new IllegalArgumentException("Role with name" + roleName + " is exist");
         }
         return roleRepository.save(role);
     }
+
     @Override
     public void addRoleToUser(String username, String roleName) {
         AppUser user = appUserRepository.findByUsername(username).orElseThrow(() ->
