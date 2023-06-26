@@ -2,7 +2,6 @@ package com.example.motorcycleshop.security;
 import com.example.motorcycleshop.repository.AppUserRepository;
 import com.example.motorcycleshop.security.filter.CustomAuthenticationFilter;
 import com.example.motorcycleshop.security.filter.CustomAuthorizationFilter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,12 +21,10 @@ import org.springframework.http.HttpMethod;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
     private final UserDetailsService userDetailsService;
     private final PasswordEncoder passwordEncoder;
     private final AppUserRepository userRepo;
-    @Autowired
-    private AuthenticationConfiguration authenticationConfiguration;
+    private final AuthenticationConfiguration authenticationConfiguration;
 
     public SecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, AppUserRepository userRepo, AuthenticationConfiguration authenticationConfiguration) {
         this.userDetailsService = userDetailsService;

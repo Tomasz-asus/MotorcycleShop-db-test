@@ -43,7 +43,6 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @Transactional
 
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
-
     @Autowired
     private JavaMailSender mailSender;
     private final AppUserRepository appUserRepository;

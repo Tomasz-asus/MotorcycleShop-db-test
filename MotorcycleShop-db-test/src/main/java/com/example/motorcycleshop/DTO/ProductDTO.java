@@ -6,11 +6,11 @@ import java.util.Objects;
 
 public class ProductDTO {
 
-    private String productName;
-    private String productDescription;
-    private Double productPrice;
-    private String imageURL;
-    private ProductCategory category;
+    private final String productName;
+    private final String productDescription;
+    private final Double productPrice;
+    private final String imageURL;
+    private final ProductCategory category;
 
     public ProductDTO(String productName,
                       String productDescription,
