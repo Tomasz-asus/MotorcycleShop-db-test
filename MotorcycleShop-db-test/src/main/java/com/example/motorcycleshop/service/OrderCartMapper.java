@@ -3,7 +3,6 @@ package com.example.motorcycleshop.service;
 import com.example.motorcycleshop.DTO.OrderCartDTO;
 import com.example.motorcycleshop.model.Product;
 import com.example.motorcycleshop.model.OrderCart;
-import com.example.motorcycleshop.repository.AppUserRepository;
 import com.example.motorcycleshop.repository.BasketRepository;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ public class OrderCartMapper {
     private static BasketRepository basketRepository;
 
 
-    public OrderCartMapper(BasketRepository basketRepository, AppUserRepository appUserRepository) {
+    public OrderCartMapper(BasketRepository basketRepository) {
         OrderCartMapper.basketRepository = basketRepository;
     }
 

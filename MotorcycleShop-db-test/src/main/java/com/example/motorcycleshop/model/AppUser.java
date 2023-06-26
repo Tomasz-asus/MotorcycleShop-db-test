@@ -71,10 +71,6 @@ public class AppUser {
         return roles;
     }
 
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
-    }
-
     public Basket getBasket() {
         return basket;
     }
@@ -101,9 +97,5 @@ public class AppUser {
 
     public List<OrderCart> getOrderCarts() {
         return orderCarts;
-    }
-
-    public void setOrderCarts(List<OrderCart> orderCarts) {
-        this.orderCarts = orderCarts;
     }
 }

@@ -1,11 +1,6 @@
 package com.example.motorcycleshop;
 
-import com.example.motorcycleshop.DTO.ProductDTO;
-import com.example.motorcycleshop.api.MotorcycleShopController;
 import com.example.motorcycleshop.model.AppUser;
-import com.example.motorcycleshop.model.ProductCategory;
-import com.example.motorcycleshop.model.Role;
-import com.example.motorcycleshop.repository.RoleRepository;
 import com.example.motorcycleshop.service.AppUserServiceImpl;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Profile;
@@ -18,14 +13,10 @@ import java.util.ArrayList;
 @Profile("prod")
 public class DbFilling {
 
-    private final MotorcycleShopController controller;
     private final AppUserServiceImpl appUserService;
-    private final RoleRepository roleRepository;
 
-    public DbFilling(MotorcycleShopController controller, AppUserServiceImpl appUserService, RoleRepository roleRepository) {
-        this.controller = controller;
+    public DbFilling(AppUserServiceImpl appUserService) {
         this.appUserService = appUserService;
-        this.roleRepository = roleRepository;
     }
 
     @EventListener(ApplicationReadyEvent.class)
