@@ -10,13 +10,14 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+//Zrób package na mappery, usuń z serwisów
 @Component
 public class OrderCartMapper {
 
     private static BasketRepository basketRepository;
 
 
+    //usun nieuzywane konstruktory
     public OrderCartMapper(BasketRepository basketRepository, AppUserRepository appUserRepository) {
         OrderCartMapper.basketRepository = basketRepository;
     }
@@ -47,6 +48,7 @@ public class OrderCartMapper {
     }
 
     private static List<Product> mappingProductsFromBasket(String basketName) {
+        //obsłuż geta
         return new ArrayList<>(basketRepository.findByBasketName(basketName).get().getProducts());
     }
 

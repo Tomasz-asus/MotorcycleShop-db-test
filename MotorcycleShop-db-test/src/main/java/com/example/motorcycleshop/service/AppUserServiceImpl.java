@@ -190,6 +190,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public AppUser getAppUser(String username) {
+        // Zrób obsługę błędów - jakiegoś exception handlera
         return appUserRepository.findByUsername(username).orElseThrow();
     }
 

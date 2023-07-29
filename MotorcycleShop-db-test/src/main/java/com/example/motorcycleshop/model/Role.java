@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 
 public class Role {
 
+    //Nie ma sensu tworzyć encji Role, zrób Enuma, będzie wystarczający
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,5 +1,5 @@
 package com.example.motorcycleshop;
-
+//usun nieużywane importy - pilnuj tego przy commitach
 import com.example.motorcycleshop.DTO.ProductDTO;
 import com.example.motorcycleshop.api.MotorcycleShopController;
 import com.example.motorcycleshop.model.AppUser;
@@ -18,8 +18,11 @@ import java.util.ArrayList;
 @Profile("prod")
 public class DbFilling {
 
+    // usuń jak nie używasz. W ogóle to cała ta klasa do wywalenia :p Jak bardzo chcesz coś dodać do bazy to lepiej zrobić profil DEV
+    // bo na prod to na pewno nie będzie stosowane
     private final MotorcycleShopController controller;
     private final AppUserServiceImpl appUserService;
+    // roleRepository najpewniej jest do usunięcia, role pobierzesz z AppUserRepository, nadprodukcja repo to też nie jest dobra praktyka
     private final RoleRepository roleRepository;
 
     public DbFilling(MotorcycleShopController controller, AppUserServiceImpl appUserService, RoleRepository roleRepository) {

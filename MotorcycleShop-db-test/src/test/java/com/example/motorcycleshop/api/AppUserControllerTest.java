@@ -54,6 +54,10 @@ class AppUserControllerTest {
     @Autowired
     BasketRepository basketRepository;
 
+    // Testy robisz na produkcyjnej bazie danych? Dobrze byłoby dodać do testów integracyjnych osobną bazę danych
+    // może to być kontener z postgresem (są specjalne klasy do tego) lub postawić H2 tylko do testów (w mvn scope
+    // do testów i w propertisach dla profilu testowego ustawienia)
+
     @Test
     public void shouldGetAppUsers() throws Exception {
         //GIVEN

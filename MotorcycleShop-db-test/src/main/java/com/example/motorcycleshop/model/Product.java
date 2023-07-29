@@ -18,6 +18,8 @@ public class Product {
     @Enumerated(EnumType.STRING)
     private ProductCategory category;
 
+    // Warto się zastanowić czy produkt powinien wiedzieć w czyim koszuku jest? Moim zdaniem produkt to produkt,
+    // raczej nie będziesz sprawdzał po obiekcie produktu do czyjego koszyka należy. Usunąłbym tą zależność
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Basket> baskets;
 

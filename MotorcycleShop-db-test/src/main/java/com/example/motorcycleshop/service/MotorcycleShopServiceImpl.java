@@ -23,6 +23,10 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+/*
+Za duże masz te serwisy, spróbuje je rozdzielić ze względu na odpowiedzialność, da to większą przejrzystość
+ i może będziesz mógł zmiejszyć ilość zależności
+*/
 public class MotorcycleShopServiceImpl implements MotorcycleShopService {
 
     private final ProductRepository productRepository;
@@ -52,6 +56,7 @@ public class MotorcycleShopServiceImpl implements MotorcycleShopService {
             throw new ProductAlreadyExistException("Product Already Exist");
         } else {
             Product save = productRepository.save(ProductMapper.fromDTO(productDTO));
+            // może lepiej toDto zamiast fromEntity - ale to pierdoła
             return ProductMapper.fromEntity(save);
         }
     }

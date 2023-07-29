@@ -111,6 +111,9 @@ public class MotorcycleShopControllerTest {
     }
 
 
+    /** Tomku, powtarzasz się ;) dodawanie produktów do bazy mógłbyś wydzielić do osobnej klasy lub chociaż metody
+    tak żeby przed wykonaniem każdego testu ta baza była uzupełniana.
+     */
     @Test
     public void shouldRemoveProductFromBasket() throws Exception {
         //GIVEN
