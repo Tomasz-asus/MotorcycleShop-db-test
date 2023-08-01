@@ -14,7 +14,6 @@ import com.example.motorcycleshop.repository.AppUserRepository;
 import com.example.motorcycleshop.repository.BasketRepository;
 import com.example.motorcycleshop.repository.RoleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -44,7 +43,6 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
-    @Autowired
     private JavaMailSender mailSender;
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
@@ -52,7 +50,10 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
     private final BasketRepository basketRepository;
 
 
-    public AppUserServiceImpl(AppUserRepository appUserRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, BasketRepository basketRepository) {
+    public AppUserServiceImpl(AppUserRepository appUserRepository,
+                              RoleRepository roleRepository,
+                              PasswordEncoder passwordEncoder,
+                              BasketRepository basketRepository) {
         this.appUserRepository = appUserRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -61,12 +62,12 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AppUser appUser = appUserRepository.findByUsername(username).orElseThrow(() ->
-                new UserNotFoundException("User " + username + " was not found."));
+        AppUser appUser = appUserRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User " + username + " was not found."));
         System.out.println("User found");
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        appUser.getRoles().forEach(role ->
-                authorities.add(new SimpleGrantedAuthority(role.getName())));
+        appUser.getRoles()
+                .forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
         return new User(appUser.getUsername(), appUser.getPassword(), authorities);
     }
 
@@ -190,8 +191,8 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
 
     @Override
     public AppUser getAppUser(String username) {
-        // Zrób obsługę błędów - jakiegoś exception handlera
-        return appUserRepository.findByUsername(username).orElseThrow();
+        return appUserRepository.findByUsername(username).orElseThrow(()->
+                new UserNotFoundException("User " + username + " was not found."));
     }
 
     @Override

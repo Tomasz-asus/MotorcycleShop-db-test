@@ -10,7 +10,8 @@ import jakarta.persistence.Id;
 
 public class Role {
 
-    //Nie ma sensu tworzyć encji Role, zrób Enuma, będzie wystarczający
+    //TODO Nie ma sensu tworzyć encji Role, zrób Enuma, będzie wystarczający
+    // nie umiem przerobić security
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

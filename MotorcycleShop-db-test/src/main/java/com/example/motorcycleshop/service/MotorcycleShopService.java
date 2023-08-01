@@ -1,8 +1,6 @@
 package com.example.motorcycleshop.service;
 
 import com.example.motorcycleshop.DTO.ProductDTO;
-import com.example.motorcycleshop.DTO.OrderCartDTO;
-import com.example.motorcycleshop.exceptions.ProductNotFoundException;
 import com.example.motorcycleshop.model.Basket;
 import com.example.motorcycleshop.model.Product;
 
@@ -22,13 +20,8 @@ public interface MotorcycleShopService {
 
     void deleteProductFromBasket(String basket, String productName);
 
-    void clearProductsList();
-
-    void addBasket(Basket basket);
-
     void addProductToBasket(String basketName, String productName);
 
     List<Product> getALlProductsFromBasket(String basketName);
 
-    OrderCartDTO addOrder(OrderCartDTO orderDTO);
 }

@@ -54,7 +54,7 @@ class AppUserControllerTest {
     @Autowired
     BasketRepository basketRepository;
 
-    // Testy robisz na produkcyjnej bazie danych? Dobrze byłoby dodać do testów integracyjnych osobną bazę danych
+    //TODO Testy robisz na produkcyjnej bazie danych? Dobrze byłoby dodać do testów integracyjnych osobną bazę danych
     // może to być kontener z postgresem (są specjalne klasy do tego) lub postawić H2 tylko do testów (w mvn scope
     // do testów i w propertisach dla profilu testowego ustawienia)
 
@@ -157,7 +157,7 @@ class AppUserControllerTest {
     @Test
     public void shouldAddRoleToUser() throws Exception {
         //GIVEN
-        Role role = new Role("ROLE_ADMIN2");
+        Role role = new Role("ROLE_USER2");
         roleRepository.save(role);
         basketRepository.save(new Basket("testOne"));
 

@@ -6,7 +6,7 @@ import com.example.motorcycleshop.model.Product;
 import com.example.motorcycleshop.model.ProductCategory;
 import com.example.motorcycleshop.repository.BasketRepository;
 import com.example.motorcycleshop.repository.ProductRepository;
-import com.example.motorcycleshop.service.ProductMapper;
+import com.example.motorcycleshop.mapper.ProductMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +91,7 @@ public class MotorcycleShopControllerTest {
 
         //THEN
         assertThat(status).isEqualTo(201);
-        assertThat(ProductMapper.fromEntity(productRepository.findByProductName("Yamaha").get())).isEqualTo(productDTO);
+        assertThat(ProductMapper.toDTO(productRepository.findByProductName("Yamaha").get())).isEqualTo(productDTO);
     }
 
     @Test
@@ -111,9 +111,9 @@ public class MotorcycleShopControllerTest {
     }
 
 
-    /** Tomku, powtarzasz się ;) dodawanie produktów do bazy mógłbyś wydzielić do osobnej klasy lub chociaż metody
-    tak żeby przed wykonaniem każdego testu ta baza była uzupełniana.
-     */
+    //TODO Tomku, powtarzasz się ;) dodawanie produktów do bazy mógłbyś wydzielić do osobnej klasy lub chociaż metody
+    //tak żeby przed wykonaniem każdego testu ta baza była uzupełniana.
+     //
     @Test
     public void shouldRemoveProductFromBasket() throws Exception {
         //GIVEN

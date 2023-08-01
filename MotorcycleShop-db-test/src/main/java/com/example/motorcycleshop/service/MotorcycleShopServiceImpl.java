@@ -1,51 +1,40 @@
 package com.example.motorcycleshop.service;
 
 import com.example.motorcycleshop.DTO.ProductDTO;
-import com.example.motorcycleshop.DTO.OrderCartDTO;
+
 import com.example.motorcycleshop.exceptions.BasketNotFoundException;
 import com.example.motorcycleshop.exceptions.ProductAlreadyExistException;
 import com.example.motorcycleshop.exceptions.ProductNotFoundException;
-import com.example.motorcycleshop.exceptions.UserNotFoundException;
-import com.example.motorcycleshop.model.AppUser;
+import com.example.motorcycleshop.mapper.ProductMapper;
 import com.example.motorcycleshop.model.Basket;
 import com.example.motorcycleshop.model.Product;
-import com.example.motorcycleshop.model.OrderCart;
-import com.example.motorcycleshop.repository.AppUserRepository;
 import com.example.motorcycleshop.repository.BasketRepository;
 import com.example.motorcycleshop.repository.ProductRepository;
-import com.example.motorcycleshop.repository.OrderCartRepository;
-//import net.bytebuddy.utility.RandomString;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
 @Transactional
-/*
-Za duże masz te serwisy, spróbuje je rozdzielić ze względu na odpowiedzialność, da to większą przejrzystość
- i może będziesz mógł zmiejszyć ilość zależności
-*/
+
 public class MotorcycleShopServiceImpl implements MotorcycleShopService {
 
     private final ProductRepository productRepository;
     private final BasketRepository basketRepository;
-    private final OrderCartRepository orderCartRepository;
-    private final AppUserRepository appUserRepository;
 
-    public MotorcycleShopServiceImpl(ProductRepository productRepository, BasketRepository basketRepository, OrderCartRepository orderCartRepository, AppUserRepository appUserRepository) {
+    public MotorcycleShopServiceImpl(ProductRepository productRepository,
+                                     BasketRepository basketRepository) {
         this.productRepository = productRepository;
         this.basketRepository = basketRepository;
-        this.orderCartRepository = orderCartRepository;
-        this.appUserRepository = appUserRepository;
     }
 
     public List<ProductDTO> getAllProducts() {
         return productRepository
                 .findAll()
                 .stream()
-                .map(ProductMapper::fromEntity)
+                .map(ProductMapper::toDTO)
                 .collect(Collectors.toList());
     }
 
@@ -56,8 +45,7 @@ public class MotorcycleShopServiceImpl implements MotorcycleShopService {
             throw new ProductAlreadyExistException("Product Already Exist");
         } else {
             Product save = productRepository.save(ProductMapper.fromDTO(productDTO));
-            // może lepiej toDto zamiast fromEntity - ale to pierdoła
-            return ProductMapper.fromEntity(save);
+            return ProductMapper.toDTO(save);
         }
     }
 
@@ -67,16 +55,8 @@ public class MotorcycleShopServiceImpl implements MotorcycleShopService {
         productRepository.deleteByProductName(name);
     }
 
-    public void clearProductsList() {
-        productRepository.deleteAll();
-    }
-
     public List<Basket> getAllBaskets() {
         return basketRepository.findAll();
-    }
-
-    public void addBasket(Basket basket) {
-        basketRepository.save(basket);
     }
 
     public void deleteBasket(String name) {
@@ -108,19 +88,5 @@ public class MotorcycleShopServiceImpl implements MotorcycleShopService {
         return basketRepository.findByBasketName(basketName)
                 .orElseThrow(() -> new BasketNotFoundException("Basket: " + basketName + ", was not found."))
                 .getProducts();
-    }
-
-    public OrderCartDTO addOrder(OrderCartDTO orderDTO) {
-        OrderCart save = orderCartRepository.save(OrderCartMapper.fromDTO(orderDTO));
-        AppUser appUser = appUserRepository.findByUsername(orderDTO.getUsername()).orElseThrow(()
-                -> new UserNotFoundException("User " + orderDTO.getUsername() + " was not found."));
-        appUser.getOrderCarts().add(save);
-        String basketCustomName = UUID.randomUUID().toString().substring(0,20);
-        Basket basket = new Basket(basketCustomName);
-        basketRepository.save(basket);
-        appUser.setBasket(basketRepository.findByBasketName(basketCustomName).orElseThrow(() ->
-                new BasketNotFoundException("Basket " +  basketCustomName + " was not found.")));
-        appUserRepository.save(appUser);
-        return OrderCartMapper.fromEntity(save);
     }
 }

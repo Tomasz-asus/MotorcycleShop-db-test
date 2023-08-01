@@ -6,6 +6,7 @@ import com.example.motorcycleshop.DTO.OrderCartDTO;
 import com.example.motorcycleshop.model.Basket;
 import com.example.motorcycleshop.model.Product;
 import com.example.motorcycleshop.service.MotorcycleShopService;
+import com.example.motorcycleshop.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,13 @@ public class MotorcycleShopController {
 
     private final MotorcycleShopService motorcycleShopService;
 
-    public MotorcycleShopController(MotorcycleShopService motorcycleShopService) {
+    private final OrderService orderService;
+
+    public MotorcycleShopController(MotorcycleShopService motorcycleShopService, OrderService orderService) {
         this.motorcycleShopService = motorcycleShopService;
+        this.orderService = orderService;
     }
+
     @PostMapping("/product")
     public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO) {
         return new  ResponseEntity<>(motorcycleShopService.addProduct(productDTO), HttpStatus.CREATED);
@@ -63,6 +68,6 @@ public class MotorcycleShopController {
     }
     @PostMapping("/order")
     public ResponseEntity<OrderCartDTO> addOrder(@RequestBody OrderCartDTO orderDTO) {
-        return new  ResponseEntity<>(motorcycleShopService.addOrder(orderDTO), HttpStatus.CREATED);
+        return new  ResponseEntity<>(orderService.addOrder(orderDTO), HttpStatus.CREATED);
     }
 }

@@ -1,30 +1,25 @@
-package com.example.motorcycleshop.service;
+package com.example.motorcycleshop.mapper;
 
 import com.example.motorcycleshop.DTO.OrderCartDTO;
+import com.example.motorcycleshop.exceptions.BasketNotFoundException;
 import com.example.motorcycleshop.model.Product;
 import com.example.motorcycleshop.model.OrderCart;
-import com.example.motorcycleshop.repository.AppUserRepository;
 import com.example.motorcycleshop.repository.BasketRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-//Zrób package na mappery, usuń z serwisów
+
 @Component
 public class OrderCartMapper {
 
     private static BasketRepository basketRepository;
 
-
-    //usun nieuzywane konstruktory
-    public OrderCartMapper(BasketRepository basketRepository, AppUserRepository appUserRepository) {
-        OrderCartMapper.basketRepository = basketRepository;
-    }
-
     public static OrderCart fromDTO(OrderCartDTO orderCartDTO) {
 
-        return new OrderCart(mappingProductsFromBasket(orderCartDTO.getBasketName()),
+        return new OrderCart(mappingProductsFromBasket(
+                orderCartDTO.getBasketName()),
                 orderCartDTO.getStreet(),
                 orderCartDTO.getPostalCode(),
                 orderCartDTO.getCity(),
@@ -48,8 +43,10 @@ public class OrderCartMapper {
     }
 
     private static List<Product> mappingProductsFromBasket(String basketName) {
-        //obsłuż geta
-        return new ArrayList<>(basketRepository.findByBasketName(basketName).get().getProducts());
-    }
 
+        return new ArrayList<>(basketRepository.findByBasketName(basketName).orElseThrow(()
+                        ->new BasketNotFoundException("Basket " + basketName + "was not found."))
+
+                .getProducts());
+    }
 }

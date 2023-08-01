@@ -41,17 +41,7 @@ public class Basket {
         products.remove(product);
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
-    }
-
-    public void setBasketName(String basketName) {
-        this.basketName = basketName;
-    }
-
     public String getBasketName() {
         return basketName;
     }
-
-
 }

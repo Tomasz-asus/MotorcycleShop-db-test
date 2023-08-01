@@ -2,7 +2,7 @@ package com.example.motorcycleshop.model;
 
 public class RoleToUserForm {
     private String username;
-    private String roleName;
+    private final String roleName;
 
     public String getUsername() {
         return username;
@@ -14,10 +14,6 @@ public class RoleToUserForm {
 
     public String getRoleName() {
         return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
     }
 
     public RoleToUserForm(String username, String roleName) {
