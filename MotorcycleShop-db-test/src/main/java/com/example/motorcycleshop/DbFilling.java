@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 @Component
-@Profile("dev")
+@Profile("test")
 public class DbFilling {
 
     private final AppUserServiceImpl appUserService;

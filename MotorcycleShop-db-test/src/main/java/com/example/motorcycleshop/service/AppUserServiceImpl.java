@@ -14,6 +14,7 @@ import com.example.motorcycleshop.repository.AppUserRepository;
 import com.example.motorcycleshop.repository.BasketRepository;
 import com.example.motorcycleshop.repository.RoleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -42,9 +43,10 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @Transactional
 
 public class AppUserServiceImpl implements AppUserService, UserDetailsService {
-
+    @Autowired
     private JavaMailSender mailSender;
     private final AppUserRepository appUserRepository;
+
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final BasketRepository basketRepository;
@@ -70,6 +72,7 @@ public class AppUserServiceImpl implements AppUserService, UserDetailsService {
                 .forEach(role -> authorities.add(new SimpleGrantedAuthority(role.getName())));
         return new User(appUser.getUsername(), appUser.getPassword(), authorities);
     }
+
 
     @Override
     public void registerUser(AppUser user, String siteUR) throws MessagingException, UnsupportedEncodingException {

@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
       - db
     environment:
@@ -16,7 +16,7 @@ services:
   db:
     image: postgres:14
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_DB=motorcycleshopdb
       - POSTGRES_USER=postgres
@@ -32,4 +32,4 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/motorcycleshopdb
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=root
-    command: [ "mvn", "flyway:migrate" ]
+    command: [ ]

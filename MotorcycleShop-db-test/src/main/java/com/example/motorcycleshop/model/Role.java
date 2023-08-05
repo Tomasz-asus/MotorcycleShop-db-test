@@ -6,12 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+
+//TODO Nie ma sensu tworzyć encji Role, zrób Enuma, będzie wystarczający
+
+
 @Entity
-
 public class Role {
-
-    //TODO Nie ma sensu tworzyć encji Role, zrób Enuma, będzie wystarczający
-    // nie umiem przerobić security
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +40,5 @@ public class Role {
     public void setName(String name) {
         this.name = name;
     }
+
 }

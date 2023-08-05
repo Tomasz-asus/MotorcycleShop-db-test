@@ -1,4 +1,4 @@
-package com.example.motorcycleshop.api;
+package com.example.motorcycleshop.config;
 
 import com.example.motorcycleshop.model.AppUser;
 import com.example.motorcycleshop.model.Basket;
@@ -10,6 +10,7 @@ import com.example.motorcycleshop.repository.RoleRepository;
 import com.example.motorcycleshop.security.filter.CustomAuthenticationFilter;
 import com.example.motorcycleshop.service.AppUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
-
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import jakarta.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,14 +31,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
-
-
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 @Transactional
 
 
-class AppUserControllerTest {
+class AppUserControllerTest2 {
 
     @Autowired
     private MockMvc mockMvc;
@@ -56,7 +56,6 @@ class AppUserControllerTest {
 
     @Autowired
     BasketRepository basketRepository;
-
 
     @Test
     public void shouldGetAppUsers() throws Exception {

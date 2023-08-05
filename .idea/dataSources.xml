@@ -8,5 +8,13 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/motorcycleshopdb</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="motorcycleshopdbtest@localhost" uuid="4c5ba589-720c-4745-b444-687c9a837b23">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <remarks>TestOnly</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/motorcycleshopdbtest</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
