@@ -26,7 +26,7 @@ public class SecurityConfig {
     private final PasswordEncoder passwordEncoder;
     private final AppUserRepository userRepo;
 
-    private AuthenticationConfiguration authenticationConfiguration;
+    private final AuthenticationConfiguration authenticationConfiguration;
 
     public SecurityConfig(UserDetailsService userDetailsService,
                           PasswordEncoder passwordEncoder,

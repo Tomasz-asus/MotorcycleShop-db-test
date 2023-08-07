@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface BasketRepository extends JpaRepository<Basket, Long> {
 
-    @NotNull Optional<Basket> findById(@NotNull Long id);
+    Optional<Basket> findById(Long id);
 
     Optional<Basket> findByBasketName(String name);
     void deleteByBasketName(String name);

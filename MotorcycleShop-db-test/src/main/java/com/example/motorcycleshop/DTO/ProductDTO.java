@@ -1,7 +1,7 @@
 package com.example.motorcycleshop.DTO;
 
 import com.example.motorcycleshop.model.ProductCategory;
-
+import java.lang.Double;
 import java.util.Objects;
 
 public class ProductDTO {

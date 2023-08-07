@@ -1,5 +1,5 @@
 package com.example.motorcycleshop.model;
-
+import java.lang.Double;
 import jakarta.persistence.*;
 
 @Entity
