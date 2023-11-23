@@ -9,5 +9,4 @@ class MotorcycleShopApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
