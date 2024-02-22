@@ -10,6 +10,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableTransactionManagement
@@ -24,9 +25,9 @@ public class MotorcycleShopConfig {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
         corsConfiguration.setAllowCredentials(true);
-        corsConfiguration.setAllowedOrigins(Arrays.asList("http://localhost:4200/"));
-        corsConfiguration.setAllowedMethods(Arrays.asList(CorsConfiguration.ALL));
-        corsConfiguration.setAllowedHeaders(Arrays.asList(CorsConfiguration.ALL));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost:4200/"));
+        corsConfiguration.setAllowedMethods(List.of(CorsConfiguration.ALL));
+        corsConfiguration.setAllowedHeaders(List.of(CorsConfiguration.ALL));
         source.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(source);
     }
